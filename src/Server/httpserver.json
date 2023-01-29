@@ -1,3 +1,3 @@
 {
-    "apiEndpoint":"https://jsonplaceholder.typicode.com/users"
+    "apiEndpoint":"http://localhost:5000/api/users"
 }

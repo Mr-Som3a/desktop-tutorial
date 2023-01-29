@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Navbar from './component/navbar';
-import Form from './component/form';
-import Update from './component/update';
-import Table  from './component/Tabel';
+import Home from './component/home';
+import AddUser from './component/addUser';
+import UpdateUser from './component/updateUser';
 import axios from 'axios';
 import http from "./Server/httpserver.json";
+import $ from "jquery"
 import { Route, Routes } from 'react-router-dom';
 // import { getuser } from './Server/mtserveces';
 
@@ -12,114 +13,80 @@ import { Route, Routes } from 'react-router-dom';
 class App extends Component {
   state = {
     users: [],
-    person: { username: '', email: '' },
-    upinfo:{username:'',email:''}
+    person: {},
   }
-  
 
   async componentDidMount() {
-    const {data:users} = await axios.get(http.apiEndpoint)
-    this.setState({users})
+    try {
+      const { data: users } = await axios.get(http.apiEndpoint)
+      this.setState({ users })
+    } catch {
+      console.log("error fetching users")
+    }
   }
-  handleChange = (e) => { 
-    const person = { ...this.state.person };
-    person[e.currentTarget.name] = e.currentTarget.value;
-    this.setState({person})
-  }
-  handleSubmit = async (e) => {
+  addUser = function (e) {
     e.preventDefault();
+    var unindexd_array = $($("#addUser")).serializeArray();
+    var user = {};
+    $.map(unindexd_array, function (n, i) {
+      user[n["name"]] = n["value"];
+    });
+    var request = {
+      "url": `http://localhost:5000/api/users`,
+      "method": "POST",
+      "data": user,
+    };
+    $.ajax(request).done(function (response) {
+      alert("User Added Successfully !!!");
+      this.handleChange(user)
+    })
+    // ||=============================================||
+    // ||   @HERE                                     ||
+    // ||   React state management problem            ||
+    // ||   console.log(user)                         ||
+    // ||   const users = this.state.users.push(user) ||
+    // ||   this.setState({ users });                 ||
+    // ||=============================================||
+  }
+  getUser = function (user) {
+    const { data: person } = user
+    this.setState({ person })
     console.log(this.state.person)
-    const { data: user } = await axios.post(http.apiEndpoint, this.state.person);
-    const users = [user, ...this.state.users];
+  }
+  handleDelete = async id => {
+    const users = this.state.users.filter(p => p._id !== id);
     this.setState({ users });
-    alert('User Successfuly add')
-  };
-  handleDelete = async user => {
-    const users = this.state.users.filter(p => p.id !== user.id);
-    this.setState({ users });
-    await axios.delete(http.apiEndpoint + '/' + user.id);
+    await axios.delete(http.apiEndpoint + '/' + id);
+    // alert('User Deleted Successfuly')
+  }
+  handleUpdate = async user => {
+    // const person = {(...this.state.person)
   }
 
-
-  handleSubmt = async (e) => {
-    e.preventDefault();
-    const { data: user } = await axios.post(http.apiEndpoint, this.state.person);
-    const users = [user, ...this.state.users];
-    this.setState({ users });
-    alert('User Successfuly add')
-  };
-
-
-
-
-  handleUpdate = async (user) => {
-    // e.preventDefault();
-    // console.log(this.state.person)
-    // console.log(getuser())
-    // const { data: user } = await axios.patch(getuser(),this.state.person);
-    // console.log(user)
-    user.username = 'success Update username'
-    user.email ="success Update email"
-    await axios.put(http.apiEndpoint + '/' + user.id, user);
-    // console.log(indexOf(user))
-
-    const users = [...this.state.users];
-    // console.log(this.state.users)
-    // console.log(users)
-    const index = users.indexOf(user);
-    users[index] = { ...user };
-    
-
-    this.setState({ users })
-    // alert('User Successfuly updated')
-    console.log(this.state.users)
-  }
-  
-//   handleState = (e) => {
-//     const upinfo={...this.state.upinfo}
-//     upinfo[e.currentTarget.name] = obj.currentTarget.value
-//     this.setState(upinfo)
-// }
-  
-  
-  
-  
-  render() { 
+  render() {
     return (
       <>
-        <Navbar/>
+        <Navbar />
         <main className='container'>
           <Routes>
-            <Route path='/' element={<h1>Welcome To Our Webapp</h1>} />
-            <Route path='/component/form.jsx'
-              element={<Form
-                onSm={this.handleSubmit}
-                onval={this.state.person}
-                onHch={this.handleChange} />} />
-            <Route path='/component/Tabel.jsx'
-              element={<Table
-                onTable={this.state.users}
+            <Route path='/'
+              element={<Home
+                users={this.state.users}
                 onDelete={this.handleDelete}
-                onUpdate={this.handleUpdate}
-                />} />
-            <Route path='/component/update.jsx'
-              element={<Update 
-                onval={this.state.person}
-              onUpdate={this.handleUpdate}
-              onHch={this.handleChange}/>} />
+                onUpdate={this.getUser}
+              />} />
+            <Route path='/addUser'
+              element={<AddUser
+                addUser={this.addUser}
+              />} />
+            <Route path='/updateUser'
+              element={<UpdateUser
+                user={this.state.person}
+                onUpdate={this.handleUpdate} />} />
           </Routes>
         </main>
       </>
     );
   }
 }
-// onState={this.handleState}
 export default App;
-/* {<Form onval={this.setState.person} 
-onHch={this.handleChange}
-onSm={this.handleSubmit} />
-<Table 
-onUp={this.handleUpdate} 
-onDel={this.handleDelete} /> }*/
-// 
-// onTable={this.state.users}  
