@@ -13,6 +13,7 @@
 ### 4 - clone server repository
   - By running the command "git clone https://github.com/musabobada/CRUD-App.git"
   - make sure it is in seperate directory and run the server [see README file]
-### 5 make Both server and react are running and open the browser
+### 5 make sure both server and react are running and open the browser
 Open [http://localhost:3000](http://localhost:3000) to view react app 
+
 Open [http://localhost:5000](http://localhost:5000) to view server site [optional]
