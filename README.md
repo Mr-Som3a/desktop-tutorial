@@ -7,7 +7,6 @@
   - RUN "git branch"
   - [your working branch is marked by a star ]
   - RUN "git pull"
-  - RUN "git status"
   
 ### 2 - RUN "npm install"
 ### 3 - RUN "npm start"
