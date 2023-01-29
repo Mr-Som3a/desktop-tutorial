@@ -1,6 +1,6 @@
 ### 0 - first you shold clone this repository to your working directory 
   - by the command "git clone https://github.com/Mr-Som3a/desktop-tutorial.git"
-### 1 - macke sure your workin directory is "/desktop-tutorial"
+### 1 - make sure your workin directory is "/desktop-tutorial"
     make sure you are on the branch "musab"
   - RUN "git branch"
   - RUN "git checkout musab"
