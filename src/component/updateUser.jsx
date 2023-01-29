@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 // import Input from "./_input";
 
 class UpdateUser extends Component {
-  // handleChange = (e) => {
-  //     const uperson = { ...this.state.uperson };
-  //     uperson[e.currentTarget.name] = e.currentTarget.value;
-  //     this.setState({ uperson })
-  // }
+  handleChange = (user) => {
+    const person = { ...this.state.uperson };
+    // person[user.currentTarget.name] = user.currentTarget.value;
+    // this.setState({ person });
+    console.log(person);
+    console.log("-------------");
+  };
 
   render() {
     return (

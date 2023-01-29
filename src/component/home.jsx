@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 // import { getuser } from '../Server/mtserveces';
 
 class Home extends Component {
+  state = {
+    person: "pppppppppppppp",
+  };
   render() {
     return (
       <React.Fragment>
