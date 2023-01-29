@@ -7,9 +7,6 @@ import axios from 'axios';
 import http from "./Server/httpserver.json";
 import $ from "jquery"
 import { Route, Routes } from 'react-router-dom';
-// import { getuser } from './Server/mtserveces';
-
-
 class App extends Component {
   state = {
     users: [],
