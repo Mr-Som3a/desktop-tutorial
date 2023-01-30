@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link, Routes,Route } from 'react-router-dom';
+import Update from './update';
+
 // import { getuser } from '../Server/mtserveces';
 
 
 
-class Table extends Component {
 
+class Table extends Component {
+    
     render() { 
         return (
-            <React.Fragment>
+            <>
                 <div className="container mt-5 ">
                 <table className="table caption-top mt-5">
                         <thead>
@@ -16,7 +19,8 @@ class Table extends Component {
                                 {/* <th scope="col">#</th> */}
                                 <th scope="col">User Name</th>
                                 <th scope="col">Email</th>
-                                {/* <th scope="col">Address</th> */}
+                                <th scope="col">Name</th>
+                                <th scope="col">Phone</th>
                                 <th scope="col">Update</th>
                                 <th scope="col">Delete</th>
                             </tr>
@@ -25,17 +29,18 @@ class Table extends Component {
                             {this.props.onTable.map(user => (
                             <tr key={user.id}>
                                 <td>{user.username}</td>
-                                <td>{user.email}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.phone}</td>
+                                    
                                     <td>
-                                        {/* <Link to="/component/update.jsx"> */}
+                                        <Link to="/component/update.jsx">
                                         <button
                                                 className="btn btn-info btn-sm"
-                                                onClick={() =>this.props.onUpdate(user)
-                                                // onClick={() => getuser(user.id)
-                                                +console.log(user)+console.log(user.id)+console.log(typeof(user.id))}
+                                                onClick={()=>this.props.onHu(user)}
                                                 >Update
                                             </button>
-                                        {/* </Link> */}
+                                        </Link>
 
                                 </td>
                                 <td>
@@ -51,7 +56,10 @@ class Table extends Component {
                         </tbody>
                     </table>
                 </div>
-                </React.Fragment>
+                <Routes>
+                <Route path="/update.jsx" element={<Update/>} />
+                </Routes>
+                </>
         );
     }
 }

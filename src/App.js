@@ -12,19 +12,36 @@ import { Route, Routes } from 'react-router-dom';
 class App extends Component {
   state = {
     users: [],
-    person: { username: '', email: '' },
-    upinfo:{username:'',email:''}
+    person: {
+      username: '',
+      email: '',
+      name:'',
+      phone: '',
+      id:''
+    },
+    updperson: {
+      username: '',
+      email: '',
+      name:'',
+      phone: '',
+      id:''
+  },
   }
   
-
   async componentDidMount() {
-    const {data:users} = await axios.get(http.apiEndpoint)
-    this.setState({users})
+      const { data: users } = await axios.get(http.apiEndpoint)
+      this.setState({ users })
   }
-  handleChange = (e) => { 
+  
+  handleChange = (e) => {
     const person = { ...this.state.person };
     person[e.currentTarget.name] = e.currentTarget.value;
-    this.setState({person})
+    this.setState({ person })
+  }
+    handleChangeU = (e) => { 
+      const updperson = { ...this.state.updperson };
+      updperson[e.currentTarget.name] = e.currentTarget.value;
+      this.setState({ updperson })
   }
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +49,7 @@ class App extends Component {
     const { data: user } = await axios.post(http.apiEndpoint, this.state.person);
     const users = [user, ...this.state.users];
     this.setState({ users });
+    console.log(this.state.users)
     alert('User Successfuly add')
   };
   handleDelete = async user => {
@@ -40,46 +58,36 @@ class App extends Component {
     await axios.delete(http.apiEndpoint + '/' + user.id);
   }
 
-
-  handleSubmt = async (e) => {
-    e.preventDefault();
-    const { data: user } = await axios.post(http.apiEndpoint, this.state.person);
-    const users = [user, ...this.state.users];
-    this.setState({ users });
-    alert('User Successfuly add')
-  };
+  // e.preventDefault();
+  // console.log(this.state.person)
+  // console.log(getuser())
+  // const { data: user } = await axios.patch(getuser(),this.state.person);
+  // console.log(user)
 
 
-
-
-  handleUpdate = async (user) => {
-    // e.preventDefault();
-    // console.log(this.state.person)
-    // console.log(getuser())
-    // const { data: user } = await axios.patch(getuser(),this.state.person);
-    // console.log(user)
-    user.username = 'success Update username'
-    user.email ="success Update email"
-    await axios.put(http.apiEndpoint + '/' + user.id, user);
-    // console.log(indexOf(user))
-
-    const users = [...this.state.users];
-    // console.log(this.state.users)
-    // console.log(users)
-    const index = users.indexOf(user);
-    users[index] = { ...user };
-    
-
-    this.setState({ users })
-    // alert('User Successfuly updated')
-    console.log(this.state.users)
+  handleuser = (user) => {
+    const username = user.username;
+    const email = user.email;
+    const name = user.name;
+    const phone = user.phone;
+    const id = user.id;
+    const updperson = {...this.state.updperson }
+    updperson.username = username;
+    updperson.email = email;
+    updperson.name = name;
+    updperson.phone = phone;
+    updperson.id = id;
+    this.setState({ updperson })
   }
+  handleUpdate = async (user) => {
+    delete this.state.updperson.id;
+    const res = await axios.put(http.apiEndpoint + '/' + this.state.updperson.id, this.state.updperson);
+    console.log(res)
+    await axios.post(http.apiEndpoint + '/' +this.state.updperson)
+    alert('Update success check Table')
+  }
+  hand
   
-//   handleState = (e) => {
-//     const upinfo={...this.state.upinfo}
-//     upinfo[e.currentTarget.name] = obj.currentTarget.value
-//     this.setState(upinfo)
-// }
   
   
   
@@ -94,32 +102,23 @@ class App extends Component {
             <Route path='/component/form.jsx'
               element={<Form
                 onSm={this.handleSubmit}
-                onval={this.state.person}
                 onHch={this.handleChange} />} />
             <Route path='/component/Tabel.jsx'
               element={<Table
                 onTable={this.state.users}
                 onDelete={this.handleDelete}
-                onUpdate={this.handleUpdate}
-                />} />
+                onHu={this.handleuser}
+              />} />
             <Route path='/component/update.jsx'
-              element={<Update 
-                onval={this.state.person}
-              onUpdate={this.handleUpdate}
-              onHch={this.handleChange}/>} />
+              element={<Update
+                onUpdate={this.handleUpdate}
+                onval={this.state.updperson}
+                onHch={this.handleChangeU} />} />
           </Routes>
         </main>
       </>
     );
   }
 }
-// onState={this.handleState}
+
 export default App;
-/* {<Form onval={this.setState.person} 
-onHch={this.handleChange}
-onSm={this.handleSubmit} />
-<Table 
-onUp={this.handleUpdate} 
-onDel={this.handleDelete} /> }*/
-// 
-// onTable={this.state.users}  

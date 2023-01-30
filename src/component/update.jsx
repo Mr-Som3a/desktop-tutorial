@@ -3,29 +3,21 @@ import Input from './input';
 
 
 class Update extends Component {
-    
-    
- 
-    // handleChange = (e) => {
-    //     const uperson = { ...this.state.uperson };
-    //     uperson[e.currentTarget.name] = e.currentTarget.value;
-    //     this.setState({ uperson })
-    // }
         
         render() {
             return (
                 <>
                 <div className="container mt-5 ">
                     <h2>Update User Information</h2>
-                    <form className="col g-3" onSubmit={this.props.onUpdate}>
-                        <Input type="text"  name="username"  label="Name" onChange={this.props.onHch} />
-                        <Input type="text" name="email"  label="Email" onChange={this.props.onHch} />
-                        {/* <Input type="text" name="address" label="Address" onChange={this.handleChange}/> */}
-                        {/* <Input type="text" name="phone" label="Phone" onChange={this.handleChange} /> */}
+                    {/* <form className="col g-3" onSubmit={this.props.onUpdate}> */}
+                        <Input type="text" value={this.props.onval.username} name="username"  label="User Name" onChange={this.props.onHch} />
+                        <Input type="text" value={this.props.onval.email} name="email"  label="Email" onChange={this.props.onHch} />
+                        <Input type="text" value={this.props.onval.name} name="name" label="Name" onChange={this.props.onHch}/>
+                        <Input type="text" value={this.props.onval.phone} name="phone" label="Phone" onChange={this.props.onHch} />
                         <div className="col mt-2">
-                            <button className="btn btn-success m-1">Update</button>
+                            <button className="btn btn-success m-1" onClick={this.props.onUpdate}>Update</button>
                         </div>
-                    </form>
+                    {/* </form> */}
                 </div>
             </>
         );
