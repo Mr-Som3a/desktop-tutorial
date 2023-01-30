@@ -1,4 +1,3 @@
-# ------a
 ### 0 - first you shold clone this repository to your working directory 
   - by the command "git clone https://github.com/Mr-Som3a/desktop-tutorial.git"
 ### 1 - make sure your workin directory is "/desktop-tutorial"
