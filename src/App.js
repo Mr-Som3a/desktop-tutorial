@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from './component/navbar';
 import Home from './component/home';
 import AddUser from './component/addUser';
-import UpdateUser from './component/updateUser';
+import EditUser from './component/editUser';
 import axios from 'axios';
 import http from "./Server/httpserver.json";
 import $ from "jquery"
@@ -10,8 +10,11 @@ import { Route, Routes } from 'react-router-dom';
 class App extends Component {
   state = {
     users: [],
-    person: {},
+    person: { name: 'John Doe', age: 32 },
   }
+  handleUpdate = () => {
+    console.log(this.state.person);
+  };
 
   async componentDidMount() {
     try {
@@ -21,6 +24,9 @@ class App extends Component {
       console.log("error fetching users")
     }
   }
+  updateUsers = (users) => {
+    this.setState({ users });
+  };
   // this method is used by addUser.jsx for creating new user when form is submited
   // by sendind request to the server
   addUser = (e) => {
@@ -39,7 +45,6 @@ class App extends Component {
       alert("User Added Successfully !!!");
     })
 
-
     // const person = { ...this.state.person };
     // person[user.currentTarget.name] = user.currentTarget.value;
     // this.setState({ person });
@@ -53,8 +58,9 @@ class App extends Component {
   // this method is used by Home.jsx update button to store the value of that
   // user and pass it to this.state.person
   // note that argument of this function "user" is the object we need to view its
-  // value in input filds in updateUser.jsx
+  // value in input filds in editUser.jsx
   getUser(user) {
+    // this.handleUpdate()
     // const person = { ...this.state.person };
     // person[user.currentTarget.name] = user.currentTarget.value;
     // this.setState({ person });
@@ -62,7 +68,7 @@ class App extends Component {
     // ||=================================================||
     // ||   @HERE                                         ||
     // ||   @ i can't update this.state.person so that i  ||
-    // ||   @ can use it in updateUser.jsx component      ||
+    // ||   @ can use it in editUser.jsx component      ||
     // ||   @ i can't even print person                   ||
     // ||   console.log(this.state.person)                ||
     // ||   console.log(user)                             ||
@@ -70,9 +76,9 @@ class App extends Component {
   }
   // this method is used by addUser.jsx for creating new user when form is submited
   // by sendind request to the server
-  updateUser = (e) => {
+  editUser = (e) => {
     e.preventDefault();
-    var unindexd_array = $("#updateUser").serializeArray();
+    var unindexd_array = $("#editUser").serializeArray();
     var user = {};
     $.map(unindexd_array, function (n, i) {
       user[n["name"]] = n["value"];
@@ -121,12 +127,13 @@ class App extends Component {
               element={<AddUser
                 addUser={this.addUser}
                 users={this.state.users}
-                person={this.state.person}
+                handleUpdate={this.handleUpdate}
+                updateUsers={this.updateUsers}
               />} />
-            <Route path='/updateUser'
-              element={<UpdateUser
+            <Route path='/editUser'
+              element={<EditUser
                 user={this.state.person}
-                onUpdate={this.updateUser} />} />
+                onUpdate={this.editUser} />} />
           </Routes>
         </main>
       </>

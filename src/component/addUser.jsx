@@ -13,7 +13,7 @@ class AddUser extends Component {
             <Input type="text" name="address" label="Address" />
             <Input type="text" name="phone" label="Phone" />
             <div className="col mt-2">
-              <button className="btn btn-primary m-1" type="submit">
+              <button onClick={() => this.props.handleUpdate()} className="btn btn-primary m-1" type="submit">
                 Submit
               </button>
             </div>

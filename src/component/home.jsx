@@ -31,7 +31,7 @@ class Home extends Component {
                   <td>{user.phone}</td>
                   <td>
                     <button className="btn btn-info btn-sm" onClick={() => this.props.onUpdate(user)}>
-                      <Link to={`/updateUser?id=${user._id}`}>Update</Link>
+                      <Link to={`/editUser?id=${user._id}`}>Update</Link>
                     </button>
 
                     <button className="btn btn-danger btn-sm" onClick={() => this.props.onDelete(user._id)}>
