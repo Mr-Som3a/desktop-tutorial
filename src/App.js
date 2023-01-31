@@ -78,10 +78,12 @@ class App extends Component {
     updperson.phone = phone;
     updperson.id = id;
     this.setState({ updperson })
+    
   }
   handleUpdate = async (user) => {
     delete this.state.updperson.id;
-    const res = await axios.put(http.apiEndpoint + '/' + this.state.updperson.id, this.state.updperson);
+    console.log(this.state.updperson)
+    const res = await axios.put(http.apiEndpoint + '/' + this.state.updperson.id, this.state.updperson);//******* */
     console.log(res)
     await axios.post(http.apiEndpoint + '/' +this.state.updperson)
     alert('Update success check Table')
