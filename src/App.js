@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from './component/navbar';
 import Form from './component/form';
 import Update from './component/update';
-import Table  from './component/Tabel';
+import Table from './component/Tabel';
 import axios from 'axios';
 import http from "./Server/httpserver.json";
 import { Route, Routes } from 'react-router-dom';
@@ -15,33 +15,33 @@ class App extends Component {
     person: {
       username: '',
       email: '',
-      name:'',
+      name: '',
       phone: '',
-      id:''
+      id: ''
     },
     updperson: {
       username: '',
       email: '',
-      name:'',
+      name: '',
       phone: '',
-      id:''
-  },
+      id: ''
+    },
   }
-  
+
   async componentDidMount() {
-      const { data: users } = await axios.get(http.apiEndpoint)
-      this.setState({ users })
+    const { data: users } = await axios.get(http.apiEndpoint)
+    this.setState({ users })
   }
-  
+
   handleChange = (e) => {
     const person = { ...this.state.person };
     person[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ person })
   }
-    handleChangeU = (e) => { 
-      const updperson = { ...this.state.updperson };
-      updperson[e.currentTarget.name] = e.currentTarget.value;
-      this.setState({ updperson })
+  handleChangeU = (e) => {
+    const updperson = { ...this.state.updperson };
+    updperson[e.currentTarget.name] = e.currentTarget.value;
+    this.setState({ updperson })
   }
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,38 +66,39 @@ class App extends Component {
 
 
   handleuser = (user) => {
+    // HHHHHHHHHHHHHHHHHHHHHHHH
     const username = user.username;
     const email = user.email;
     const name = user.name;
     const phone = user.phone;
     const id = user.id;
-    const updperson = {...this.state.updperson }
+    const updperson = { ...this.state.updperson }
     updperson.username = username;
     updperson.email = email;
     updperson.name = name;
     updperson.phone = phone;
     updperson.id = id;
     this.setState({ updperson })
-    
+
   }
   handleUpdate = async (user) => {
     delete this.state.updperson.id;
     console.log(this.state.updperson)
     const res = await axios.put(http.apiEndpoint + '/' + this.state.updperson.id, this.state.updperson);//******* */
     console.log(res)
-    await axios.post(http.apiEndpoint + '/' +this.state.updperson)
+    await axios.post(http.apiEndpoint + '/' + this.state.updperson)
     alert('Update success check Table')
   }
   hand
-  
-  
-  
-  
-  
-  render() { 
+
+
+
+
+
+  render() {
     return (
       <>
-        <Navbar/>
+        <Navbar />
         <main className='container'>
           <Routes>
             <Route path='/' element={<h1>Welcome To Our Webapp</h1>} />
