@@ -10,7 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 class App extends Component {
   state = {
     users: [],
-    person: { name: 'John Doe', age: 32 },
+    person: {},
   }
   handleUpdate = () => {
     console.log(this.state.person);
