@@ -82,12 +82,15 @@ class App extends Component {
 
   }
   handleUpdate = async (user) => {
-
     console.log(this.state.updperson)
     const res = await axios.put(http.apiEndpoint + '/' + this.state.updperson.id, this.state.updperson);//******* */
     console.log(res)
-    // await axios.post(http.apiEndpoint + '/' +res)
-    this.setState({users:res})
+    delete this.state.updperson.id;
+    // users[user.id-1]=res
+    // const upd =await axios.post(http.apiEndpoint + '/' +res)
+    const users = [res,...this.state.users]
+    
+    this.setState(users)
     alert('Update success check Table')
   }
   
