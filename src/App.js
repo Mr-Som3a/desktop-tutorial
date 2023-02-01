@@ -27,6 +27,13 @@ class App extends Component {
   updateUsers = (users) => {
     this.setState({ users });
   };
+
+  handleChange = (e) => {
+    // const person = { ...this.state.person };
+    // person[e.currentTarget.name] = e.currentTarget.value;
+    // this.setState({ person })
+    console.log("ddddd")
+  }
   // this method is used by addUser.jsx for creating new user when form is submited
   // by sendind request to the server
   addUser = (e) => {
@@ -109,6 +116,7 @@ class App extends Component {
             <Route path='/editUser'
               element={<EditUser
                 user={this.state.person}
+                onChange={this.handleChange}
                 onUpdate={this.editUser} />} />
           </Routes>
         </main>
