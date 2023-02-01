@@ -1,3 +1,5 @@
+// ---------------========== hiiiiiii
+
 import React, { Component } from 'react';
 import Navbar from './component/navbar';
 import Form from './component/form';
@@ -88,12 +90,12 @@ class App extends Component {
     delete this.state.updperson.id;
     // users[user.id-1]=res
     // const upd =await axios.post(http.apiEndpoint + '/' +res)
-    const users = [res,...this.state.users]
-    
+    const users = [res, ...this.state.users]
+
     this.setState(users)
     alert('Update success check Table')
   }
-  
+
 
 
 
