@@ -7,13 +7,13 @@ class AddUser extends Component {
       <React.Fragment>
         <div className="container mt-5 ">
           <h2>Add A New Person</h2>
-          <form className="col g-3" id="addUser" method="POST" onSubmit={(e) => this.props.addUser(e)}>
-            <Input onChange={this.props.onChange} type="text" name="name" label="Name" />
-            <Input onChange={this.props.onChange} type="text" name="age" label="Age" />
-            <Input onChange={this.props.onChange} type="text" name="address" label="Address" />
-            <Input onChange={this.props.onChange} type="text" name="phone" label="Phone" />
+          <form className="col g-3" id="addUser" method="POST" onSubmit={(e) => this.props.createUser(e)}>
+            <Input onChange={this.props.onChange} type="text" name="name" label="Name" value={this.props.person.name} />
+            <Input onChange={this.props.onChange} type="text" name="age" label="Age" value={this.props.person.age} />
+            <Input onChange={this.props.onChange} type="text" name="address" label="Address" value={this.props.person.address} />
+            <Input onChange={this.props.onChange} type="text" name="phone" label="Phone" value={this.props.person.phone} />
             <div className="col mt-2">
-              <button onClick={() => this.props.handleUpdate()} className="btn btn-primary m-1" type="submit">
+              <button onClick={() => this.props.handleUpdate} className="btn btn-primary m-1" type="submit">
                 Submit
               </button>
             </div>

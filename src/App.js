@@ -12,10 +12,6 @@ class App extends Component {
     users: [],
     person: {}
   }
-  handleUpdate = () => {
-    console.log(this.state.person);
-  };
-
   async componentDidMount() {
     try {
       const { data: users } = await axios.get(http.apiEndpoint)
@@ -24,10 +20,6 @@ class App extends Component {
       console.log("error fetching users")
     }
   }
-  updateUsers = (users) => {
-    // const users = { ...this.state.users }
-    this.setState({ users });
-  };
 
   handleChange = (e) => {
     const person = { ...this.state.person };
@@ -36,7 +28,7 @@ class App extends Component {
   }
   // this method is used by addUser.jsx for creating new user when form is submited
   // by sendind request to the server
-  addUser = (e) => {
+  createUser = (e) => {
     e.preventDefault();
     var unindexd_array = $("#addUser").serializeArray();
     var user = {};
@@ -48,7 +40,9 @@ class App extends Component {
       "method": "POST",
       "data": user,
     };
-    $.ajax(request).done(function (response) {
+    const users = [...this.state.users, user]
+    this.setState({ users });
+    $.ajax(request).done((response) => {
       alert("User Added Successfully !!!");
     })
   }
@@ -56,7 +50,7 @@ class App extends Component {
   // user and pass it to this.state.person
   // note that argument of this function "user" is the object we need to view its
   // value in input filds in editUser.jsx
-  getUser = (user) => {
+  setPerson = (user) => {
     const person = {
       name: user.name,
       age: user.age,
@@ -65,11 +59,10 @@ class App extends Component {
       id: user._id,
     }
     this.setState({ person })
-    console.log(user)
   }
   // this method is used by addUser.jsx for creating new user when form is submited
   // by sendind request to the server
-  editUser = (e) => {
+  updateUser = (e) => {
     e.preventDefault();
     var unindexd_array = $("#editUser").serializeArray();
     var user = {};
@@ -81,7 +74,16 @@ class App extends Component {
       "method": "PUT",
       "data": user,
     };
-    $.ajax(request).done(function (response) {
+    $.ajax(request).done((response) => {
+      const users = [...this.state.users]
+      users.forEach(person => {
+        if (person._id === user.id) {
+          Object.assign(person, user)
+        }
+      })
+      console.log(users)
+      this.setState({ users });
+      console.log(this.state.users)
       alert("User Updated Successfully !!!");
     })
   }
@@ -104,21 +106,20 @@ class App extends Component {
                 users={this.state.users}
                 person={this.state.person}
                 onDelete={this.handleDelete}
-                onUpdate={this.getUser}
+                onUpdate={this.setPerson}
               />} />
             <Route path='/addUser'
               element={<AddUser
-                addUser={this.addUser}
-                users={this.state.users}
-                handleUpdate={this.handleUpdate}
-                updateUsers={this.updateUsers}
+                person={this.state.person}
                 onChange={this.handleChange}
+                createUser={this.createUser}
               />} />
             <Route path='/editUser'
               element={<EditUser
                 user={this.state.person}
                 onChange={this.handleChange}
-                onUpdate={this.editUser} />} />
+                onUpdate={this.updateUser}
+              />} />
           </Routes>
         </main>
       </>
