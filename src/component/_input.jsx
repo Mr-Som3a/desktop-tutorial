@@ -1,15 +1,15 @@
 import React from "react";
 
-const Input = ({ type, name, label, value = null }) => {
+const Input = ({ type, name, label, value = "", onChange }) => {
   if (type === "hidden") {
-    return <input name={name} value={value} className="form-control" type={type} id={name} />;
+    return <input name={name} onChange={onChange} value={value} className="form-control" type={type} id={name} />;
   } else {
     return (
       <div className="col-md-4">
         <label htmlFor={name} className="form-label">
           {label}
         </label>
-        <input name={name} value={value} className="form-control" type={type} id={name} />
+        <input name={name} onChange={onChange} value={value} className="form-control" type={type} id={name} />
       </div>
     );
   }

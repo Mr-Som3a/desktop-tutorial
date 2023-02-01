@@ -25,14 +25,14 @@ class App extends Component {
     }
   }
   updateUsers = (users) => {
+    // const users = { ...this.state.users }
     this.setState({ users });
   };
 
   handleChange = (e) => {
-    // const person = { ...this.state.person };
-    // person[e.currentTarget.name] = e.currentTarget.value;
-    // this.setState({ person })
-    console.log("ddddd")
+    const person = { ...this.state.person };
+    person[e.currentTarget.name] = e.currentTarget.value;
+    this.setState({ person })
   }
   // this method is used by addUser.jsx for creating new user when form is submited
   // by sendind request to the server
