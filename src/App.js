@@ -112,6 +112,7 @@ class App extends Component {
                 users={this.state.users}
                 handleUpdate={this.handleUpdate}
                 updateUsers={this.updateUsers}
+                onChange={this.handleChange}
               />} />
             <Route path='/editUser'
               element={<EditUser
