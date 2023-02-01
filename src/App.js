@@ -10,7 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 class App extends Component {
   state = {
     users: [],
-    person: {},
+    person: {}
   }
   handleUpdate = () => {
     console.log(this.state.person);
@@ -44,35 +44,21 @@ class App extends Component {
     $.ajax(request).done(function (response) {
       alert("User Added Successfully !!!");
     })
-
-    // const person = { ...this.state.person };
-    // person[user.currentTarget.name] = user.currentTarget.value;
-    // this.setState({ person });
-    // ||=============================================||
-    // ||   @HERE                                     ||
-    // ||   @ the function above is work completley   ||
-    // ||   @ fine but state.users does not updated   ||
-    // ||   console.log(user)                         ||
-    // ||=============================================||
   }
   // this method is used by Home.jsx update button to store the value of that
   // user and pass it to this.state.person
   // note that argument of this function "user" is the object we need to view its
   // value in input filds in editUser.jsx
-  getUser(user) {
-    // this.handleUpdate()
-    // const person = { ...this.state.person };
-    // person[user.currentTarget.name] = user.currentTarget.value;
-    // this.setState({ person });
-    // console.log(person)
-    // ||=================================================||
-    // ||   @HERE                                         ||
-    // ||   @ i can't update this.state.person so that i  ||
-    // ||   @ can use it in editUser.jsx component      ||
-    // ||   @ i can't even print person                   ||
-    // ||   console.log(this.state.person)                ||
-    // ||   console.log(user)                             ||
-    // ||=================================================||
+  getUser = (user) => {
+    const person = {
+      name: user.name,
+      age: user.age,
+      address: user.address,
+      phone: user.phone,
+      id: user._id,
+    }
+    this.setState({ person })
+    console.log(user)
   }
   // this method is used by addUser.jsx for creating new user when form is submited
   // by sendind request to the server
@@ -91,16 +77,6 @@ class App extends Component {
     $.ajax(request).done(function (response) {
       alert("User Updated Successfully !!!");
     })
-
-
-    // const users = { ...this.state.users };
-    // person[user.currentTarget.name] = user.currentTarget.value;
-    // this.setState({ users });
-    // ||=============================================||
-    // ||   @HERE                                     ||
-    // ||   @ the function above is work completley   ||
-    // ||   @ fine but state.users does not updated   ||
-    // ||=============================================||
   }
   // this method is used by home.jsx component by Delete Button
   handleDelete = async id => {
